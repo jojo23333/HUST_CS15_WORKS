@@ -60,31 +60,47 @@ void transpose_submit(int M, int N, int A[N][M], int B[M][N])
 char transpose_submit1_desc[] = "Transpose submission1";
 void transpose_submit1(int M, int N, int A[N][M], int B[M][N])
 {
-    int BLK = 4;
-    int r1, r2, r3, r4;
-    for (int xs=0; xs < N; xs+=BLK) {
-        for (int ys=0; ys<M; ys+=BLK) {
-            int xu = min(xs+BLK,N);
-            int yu = min(ys+BLK,M);
-            for (int i=xs; i<xu; i+=2) {
-                if ( i+1 < xu) {
-                    r1 = A[i+1][ys];
-                    r2 = A[i+1][ys+1];
-                    r3 = A[i+1][ys+2];
-                    r4 = A[i+1][ys+3];
-                }
-                for (int j=ys; j<yu; j++){
-                    B[j][i] = A[i][j];
-                }
-                if ( i+1 < xu) {
-                    B[ys][i+1] = r1;
-                    B[ys+1][i+1] = r2;
-                    B[ys+2][i+1] = r3;
-                    B[ys+3][i+1] = r4;
-                }
-            }
-        }
-    }
+    int BLK = (M==61)? 16 : 8;
+    int a1,a2,a3,a4,a5,a6,a7,a8;
+	if (M == 64 || M == 61)
+		for (int xs=0; xs < N; xs+=BLK) {
+			for (int ys=0; ys<M; ys+=BLK) {
+				int xu = min(xs+BLK,N);
+				int yu = min(ys+BLK,M);
+				for (int i=xs; i<xu; i++) {
+					for (int j=ys; j<yu; j++){
+						if (i!=j)
+							B[j][i] = A[i][j];
+						else
+							tmp = A[i][j], index = i;
+					}
+					if (xs == ys) {
+						B[index][index] = tmp;
+					}
+				}
+			}
+		}
+	else 
+		for(i=0;i<64;i+=8){
+			for(j=0;j<64;j+=8){
+				for(k=j;k<j+4;++k){
+					a1=A[k][i];a2=A[k][i+1];a3=A[k][i+2];a4=A[k][i+3];
+					a5=A[k][i+4];a6=A[k][i+5];a7=A[k][i+6];a8=A[k][i+7];
+					B[i][k]=a1;B[i][k+4]=a5;B[i+1][k]=a2;B[i+1][k+4]=a6;
+					B[i+2][k]=a3;B[i+2][k+4]=a7;B[i+3][k]=a4;B[i+3][k+4]=a8;                               
+				}
+				for(k=i;k<i+4;++k){
+					a1=B[k][j+4];a2=B[k][j+5];a3=B[k][j+6];a4=B[k][j+7];
+					a5=A[j+4][k];a6=A[j+5][k];a7=A[j+6][k];a8=A[j+7][k];
+					B[k][j+4]=a5;B[k][j+5]=a6;B[k][j+6]=a7;B[k][j+7]=a8;
+					B[k+4][j]=a1;B[k+4][j+1]=a2;B[k+4][j+2]=a3;B[k+4][j+3]=a4;
+				}
+				for(k=i+4;k<i+8;++k){
+					a1=A[j+4][k];a2=A[j+5][k];a3=A[j+6][k];a4=A[j+7][k];
+					B[k][j+4]=a1;B[k][j+5]=a2;B[k][j+6]=a3;B[k][j+7]=a4;
+				}
+			}
+		}
 }
 /* 
  * trans - A simple baseline transpose function, not optimized for the cache.
