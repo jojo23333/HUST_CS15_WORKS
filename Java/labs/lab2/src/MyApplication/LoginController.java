@@ -29,9 +29,16 @@ public class LoginController{
     public void onClick(ActionEvent e){
         System.out.println(userid.getText());
         System.out.println(userpwd.getText());
+//        if (userid.getText().compareTo("123") && userpwd)
+        if (isUser) {
+            userLoginSuccess(userid.getText());
+        }
+        else{
+            docLoginSuccess(userid.getText());
+        }
     }
 
-    private void userLoginSuccess() {
+    private void userLoginSuccess(String username) {
         try {
             Stage curStage = myApp.curStage;
             curStage.close();
@@ -41,7 +48,7 @@ public class LoginController{
             Pane root = loader.load();
 
             RegisterController registerController = loader.getController();
-            registerController.setMyApp(this.myApp);
+            registerController.setMyApp(this.myApp,username);
 
             Scene scene = new Scene(root);
             curStage.setScene(scene);
@@ -52,21 +59,10 @@ public class LoginController{
         }
     }
 
-    private void docLoginSuccess() {
+    private void docLoginSuccess(String username) {
         try {
-            Stage curStage = myApp.curStage;
-            curStage.close();
+//            Stage curStage = myApp.curStage;
 
-            FXMLLoader loader;
-            loader = new FXMLLoader(getClass().getResource("DocView.fxml"));
-            Pane root = loader.load();
-
-            RegisterController registerController = loader.getController();
-            registerController.setMyApp(this.myApp);
-
-            Scene scene = new Scene(root);
-            curStage.setScene(scene);
-            curStage.show();
         }
         catch (Exception e){
             e.printStackTrace();

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class MyApplication extends Application{
 
     public static Stage curStage;
+    public SqlConnector mysql;
 
     public static void main(String[] args) {
         launch(args);
@@ -28,6 +29,7 @@ public class MyApplication extends Application{
             primaryStage.setScene(scene);
             primaryStage.show();
             curStage = primaryStage;
+            mysql = new SqlConnector();
         }catch (Exception e){
             e.printStackTrace();
         }
