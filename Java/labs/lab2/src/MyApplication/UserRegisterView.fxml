@@ -69,8 +69,8 @@
                                     </Label>
                                     <ComboBox fx:id="officeName" editable="true" onAction="#onOfficeNameSelected" onMouseClicked="#onOfficeNameClicked" prefHeight="28.0" prefWidth="163.0" GridPane.columnIndex="1" />
                                     <ComboBox fx:id="registerClass" onAction="#onRegisterClassSelected" onMouseClicked="#onRegisterClassClicked" prefHeight="28.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="payment" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Label fx:id="payChange" layoutX="10.0" layoutY="182.0" text="3￥" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <TextField fx:id="payment" onAction="#onPaymentEntered" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="payChange" layoutX="10.0" layoutY="182.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -115,12 +115,12 @@
                                     </Label>
                                     <ComboBox fx:id="docName" editable="true" onAction="#onDocNameSelected" onMouseClicked="#onDocNameClicked" prefHeight="28.0" prefWidth="163.0" GridPane.columnIndex="1" />
                                     <ComboBox fx:id="registerName" editable="true" layoutX="78.0" layoutY="22.0" onAction="#onRegisterNameSelected" onMouseClicked="#onRegisterNameClicked" prefHeight="28.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label fx:id="registerId" text="1232323" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <Label fx:id="registerId" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="payDemand" layoutX="78.0" layoutY="182.0" text="123￥" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <Label fx:id="payDemand" layoutX="78.0" layoutY="182.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -143,17 +143,17 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="submit" layoutX="26.0" layoutY="7.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="128.0" text="确定" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
+                              <Button fx:id="submit" layoutX="26.0" layoutY="7.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="34.0" prefWidth="128.0" text="确定" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="clear" layoutX="31.0" layoutY="7.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="124.0" text="清除" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
+                              <Button fx:id="clear" layoutX="31.0" layoutY="7.0" mnemonicParsing="false" onAction="#onClear" prefHeight="34.0" prefWidth="124.0" text="清除" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="quit" layoutX="-10.0" layoutY="3.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="128.0" text="退出" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
+                              <Button fx:id="quit" layoutX="-10.0" layoutY="3.0" mnemonicParsing="false" onAction="#onQuit" prefHeight="34.0" prefWidth="128.0" text="退出" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                     </items>

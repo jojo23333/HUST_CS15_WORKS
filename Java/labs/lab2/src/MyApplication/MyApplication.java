@@ -29,7 +29,7 @@ public class MyApplication extends Application{
             primaryStage.setScene(scene);
             primaryStage.show();
             curStage = primaryStage;
-            mysql = new SqlConnector();
+            mysql = new SqlConnector("","","");
         }catch (Exception e){
             e.printStackTrace();
         }

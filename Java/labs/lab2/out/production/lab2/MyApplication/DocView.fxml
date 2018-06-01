@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MyApplication.DocViewController">
+   <children>
+      <GridPane layoutX="168.0" layoutY="122.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="194.0" minHeight="10.0" percentHeight="90.0" prefHeight="55.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="345.0" minHeight="10.0" percentHeight="10.0" prefHeight="345.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="    病人列表    ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="patientTable" prefHeight="327.0" prefWidth="600.0">
+                                 <columns>
+                                    <TableColumn fx:id="patient_regid" prefWidth="130.0" text="挂号编号" />
+                                    <TableColumn fx:id="patient_name" prefWidth="130.0" text="病人名称" />
+                                    <TableColumn fx:id="patient_date" prefWidth="200.0" text="挂号日期时间" />
+                                    <TableColumn fx:id="patient_cat" prefWidth="140.0" text="号种类别" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="    收入列表    ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="incomeTable" layoutX="88.0" layoutY="43.0" prefHeight="327.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="income_dep" prefWidth="100.0" text="科室名称" />
+                                  <TableColumn fx:id="income_docid" prefWidth="100.0" text="医生编号" />
+                                    <TableColumn fx:id="income_docname" prefWidth="100.0" text="医生名称" />
+                                    <TableColumn fx:id="income_cat" prefWidth="100.0" text="号种类别" />
+                                    <TableColumn fx:id="income_num" prefWidth="100.0" text="挂号人次" />
+                                    <TableColumn fx:id="income_fee" prefWidth="100.0" text="收入合计" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" stylesheets="@split_remove_seperator.css" GridPane.rowIndex="1">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="refresh" alignment="CENTER" mnemonicParsing="false" onAction="#onRefresh" prefHeight="24.0" prefWidth="110.0" text="刷新" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="5.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="exit" alignment="CENTER" mnemonicParsing="false" onAction="#onExit" prefHeight="24.0" prefWidth="110.0" text="退出" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="5.0" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

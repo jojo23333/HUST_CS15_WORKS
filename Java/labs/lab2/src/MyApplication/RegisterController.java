@@ -1,12 +1,12 @@
 package MyApplication;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class RegisterController {
     @FXML private Button submit, clear, quit;
 
     private MyApplication myApp;
-    private String username;
+    private String pid;
     private loginSqlDataConnector data;
 
     private String showString(String x[]) {
@@ -30,14 +30,24 @@ public class RegisterController {
         return t;
     }
 
-    public void setMyApp(MyApplication myApp, String username)
+    public void setMyApp(MyApplication myApp, String pid)
     {
         this.myApp = myApp;
-        this.data = new loginSqlDataConnector(username);
-        this.username = username;
+        this.data = new loginSqlDataConnector(pid);
+        this.pid = pid;
         this.setOfficeNameHandler();
         this.setDocNameHandler();
         this.setRegisterNameHandler();
+        payment.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    payment.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+//        this.registerClass.setValue("普通号");
     }
 
     @FXML void onOfficeNameClicked(){
@@ -204,23 +214,92 @@ public class RegisterController {
         String choice = registerName.getEditor().getText();
         String id = choice.substring(choice.lastIndexOf(" ")+1);
         data.registerNameId = id;
+        payDemand.setText(String.valueOf(data.getfee()) + " ￥ / 余额： " + data.balance + " ￥");
+        if (data.fee <= data.balance) {
+            payment.setDisable(true);
+        }
+        else {
+            payment.setDisable(false);
+        }
+    }
+
+    @FXML void onPaymentEntered() {
+        System.out.println("payment: " + payment.getText());
+        if (!payment.getText().equals("")) {
+            data.payment = Integer.parseInt(payment.getText());
+            if (data.balance + data.payment >= data.fee)
+                payChange.setText(String.valueOf(data.balance - data.fee >= 0 ?
+                        0 : data.balance + data.payment - data.fee) + " ￥ ");
+            else
+                payChange.setText("金额不足");
+        }
+    }
+
+    @FXML void onClear() {
+        officeName.setValue(null);
+        docName.setValue(null);
+        registerClass.setValue(null);
+        registerName.setValue(null);
+        payment.setText("");
+        payDemand.setText("");
+        payChange.setText("");
+        data.officeId = data.docId = data.registerNameId = "";
+        data.payment = 0; data.fee = 0;
+    }
+
+    @FXML void onQuit() {
+        Stage curStage = this.myApp.curStage;
+        curStage.close();
+    }
+
+    @FXML void onRegister() {
+        onPaymentEntered();
+        String title = null,context = null,id = null;
+        title = "有未选择字段";
+        if (data.officeId.equals("")) context = "请选择科室";
+        else if (data.docId.equals("")) context = "请选择医生";
+        else if (data.registerNameId.equals("")) context = "请选择号种";
+        else if (data.balance+data.payment < data.fee) context = "金额不足";
+        else {
+            String[] msg = new String[2];
+            if (data.register(msg)) {
+                id = msg[1];
+                title = "挂号成功";
+                registerId.setText(id);
+                submit.setDisable(true);
+                clear.setDisable(true);
+            }
+            else{
+                title = "挂号失败";
+            }
+            context = msg[0];
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText(title);
+        alert.setContentText(context);
+
+        alert.showAndWait();
+
     }
 }
 
 class loginSqlDataConnector{
-    private String username;
+    private String pid;
     public List<String[]> officeNameList, docNameList, registerNameList;
     public boolean isExpert, isExpertClass;
     public String officeId, docId, registerNameId;
+    public int payment ,fee, balance;
 
-    public loginSqlDataConnector(String username) {
-        this.username = username;
+    public loginSqlDataConnector(String pid) {
+        this.pid = pid;
         officeNameList = new ArrayList<String[]>();
         docNameList = new ArrayList<String[]>();
         registerNameList = new ArrayList<String[]>();
         officeId = "";
         docId = "";
         registerNameId = "";
+        this.balance = SqlConnector.getUserBalance(pid);
         update();
     }
 
@@ -232,5 +311,33 @@ class loginSqlDataConnector{
         SqlConnector.getDocName(officeId,docNameList);
         SqlConnector.getRegisterName(officeId,isExpertClass,registerNameList);
         this.isExpert = SqlConnector.isExpert(docId);
+    }
+
+    public int getfee(){
+        for (String[] x : registerNameList) {
+            if (x[2].equals(registerNameId)) {
+                this.fee = Integer.parseInt(x[3]);
+                break;
+            }
+        }
+        return this.fee;
+    }
+
+    public boolean register(String[] args) {
+
+        int uplimit = SqlConnector.getRegUplimit(registerNameId);
+        int curAmount = SqlConnector.getRegCurAmount(registerNameId);
+        if (curAmount >= uplimit) {
+            args[0] = "已达到该号种单日申请上限";
+        } else {
+            args[1] = SqlConnector.register(pid,docId,registerNameId,curAmount,fee);
+            if (args[1] != null) {
+                args[0] = "挂号成功！您的挂号号码为：" + args[1];
+//                System.out.println(msg);
+                SqlConnector.updateUserBanlance(this.pid, Math.max(this.balance-this.fee, 0));
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -58,42 +58,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MyApplication.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MyApplication/MyApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RegisterController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/MyApplication/RegisterController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-125">
-              <caret line="118" column="5" selection-start-line="118" selection-start-column="5" selection-end-line="118" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
-                <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
-                <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
-                <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
-                <element signature="method#onRegisterNameSelected#0;class#RegisterController#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SqlConnector.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SqlConnector.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MyApplication/SqlConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
+            <state relative-caret-position="915">
+              <caret line="97" column="93" selection-start-line="97" selection-start-column="93" selection-end-line="97" selection-end-column="93" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#getOfficeName#0;class#SqlConnector#0" />
+                <element signature="method#isExpert#0;class#SqlConnector#0" />
+                <element signature="method#getRegisterName#0;class#SqlConnector#0" />
+                <element signature="method#getUserBalance#0;class#SqlConnector#0" />
+                <element signature="method#getUserPassword#0;class#SqlConnector#0" />
+                <element signature="method#getRegUplimit#0;class#SqlConnector#0" />
+                <element signature="method#getRegCurAmount#0;class#SqlConnector#0" />
+                <element signature="method#register#0;class#SqlConnector#0" />
               </folding>
             </state>
           </provider>
@@ -102,10 +81,73 @@
       <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MyApplication/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="53" column="37" lean-forward="true" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+            <state relative-caret-position="15">
+              <caret line="44" selection-start-line="44" selection-end-line="44" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DocViewController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#1538:1956" />
+                <element signature="class#2030:2448" />
+                <element signature="class#2521:2939" />
+                <element signature="class#2885:3288" />
+                <element signature="class#3360:3763" />
+                <element signature="class#3835:4238" />
+                <element signature="class#4310:4713" />
+                <element signature="class#4785:5188" />
+                <element signature="class#5260:5663" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DocView.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MyApplication/DocView.fxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="42" column="41" lean-forward="true" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+            </state>
+          </provider>
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+        </entry>
+      </file>
+      <file leaf-file-name="DocViewRegisterModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewRegisterModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DocViewIncomeModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewIncomeModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+              <folding>
+                <element signature="e#820#821#0" expanded="true" />
+                <element signature="e#857#858#0" expanded="true" />
+                <element signature="e#897#898#0" expanded="true" />
+                <element signature="e#935#936#0" expanded="true" />
+                <element signature="e#975#976#0" expanded="true" />
+                <element signature="e#1013#1014#0" expanded="true" />
+                <element signature="e#1053#1054#0" expanded="true" />
+                <element signature="e#1091#1092#0" expanded="true" />
+                <element signature="e#1131#1132#0" expanded="true" />
+                <element signature="e#1169#1170#0" expanded="true" />
+                <element signature="e#1209#1210#0" expanded="true" />
+                <element signature="e#1247#1248#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -121,6 +163,11 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>username</find>
+    </findStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -139,19 +186,22 @@
         <option value="$PROJECT_DIR$/src/MyApplication/docVIew.fxml" />
         <option value="$PROJECT_DIR$/src/MyApplication/WelcomeController.java" />
         <option value="$PROJECT_DIR$/src/MyApplication/Welcome.fxml" />
-        <option value="$PROJECT_DIR$/src/MyApplication/LoginController.java" />
         <option value="$PROJECT_DIR$/src/MyApplication/MyApplication.java" />
-        <option value="$PROJECT_DIR$/src/MyApplication/SqlConnector.java" />
         <option value="$PROJECT_DIR$/src/MyApplication/RegisterController.java" />
+        <option value="$PROJECT_DIR$/src/MyApplication/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/MyApplication/docViewRegisterModel.java" />
+        <option value="$PROJECT_DIR$/src/MyApplication/DocViewIncomeModel.java" />
+        <option value="$PROJECT_DIR$/src/MyApplication/DocView.fxml" />
+        <option value="$PROJECT_DIR$/src/MyApplication/DocViewController.java" />
+        <option value="$PROJECT_DIR$/src/MyApplication/SqlConnector.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="322" />
-    <option name="y" value="266" />
-    <option name="width" value="1598" />
-    <option name="height" value="900" />
+    <option name="x" value="-2" />
+    <option name="width" value="1370" />
+    <option name="height" value="770" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -161,6 +211,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -188,8 +240,6 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -329,39 +379,40 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="0" width="1370" height="770" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32959184" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.37724552" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.32934132" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info id="Image Layers" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25426358" />
+      <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21083455" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.20468278" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info id="UI Designer" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997006" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" id="JetGradle" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="right" id="JetGradle" order="4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Changes" order="7" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Profiler" order="7" />
-      <window_info anchor="bottom" id="Problems" order="7" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="bottom" id="Profiler" order="9" />
+      <window_info anchor="bottom" id="Problems" order="10" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Application Servers" order="12" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -373,7 +424,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -383,11 +434,190 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/MyApplication/MyApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="375">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/RegisterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3750">
+          <caret line="250" selection-start-line="250" selection-end-line="251" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
+            <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
+            <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/SqlConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4170">
+          <caret line="278" column="145" selection-start-line="278" selection-start-column="21" selection-end-line="278" selection-end-column="145" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getOfficeName#0;class#SqlConnector#0" />
+            <element signature="method#isExpert#0;class#SqlConnector#0" />
+            <element signature="method#getRegisterName#0;class#SqlConnector#0" />
+            <element signature="method#getUserBalance#0;class#SqlConnector#0" />
+            <element signature="method#getUserPassword#0;class#SqlConnector#0" />
+            <element signature="method#getRegUplimit#0;class#SqlConnector#0" />
+            <element signature="method#getRegCurAmount#0;class#SqlConnector#0" />
+            <element signature="method#register#0;class#SqlConnector#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewRegisterModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="36" selection-start-line="36" selection-end-line="44" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#1538:1956" />
+            <element signature="class#2030:2448" />
+            <element signature="class#2521:2939" />
+            <element signature="class#2885:3288" />
+            <element signature="class#3360:3763" />
+            <element signature="class#3835:4238" />
+            <element signature="class#4310:4713" />
+            <element signature="class#4785:5188" />
+            <element signature="class#5260:5663" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/MyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/RegisterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5055">
+          <caret line="337" column="28" selection-start-line="337" selection-start-column="28" selection-end-line="337" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
+            <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
+            <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="51" column="9" lean-forward="true" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/SqlConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3540">
+          <caret line="236" column="30" selection-start-line="236" selection-start-column="30" selection-end-line="236" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getOfficeName#0;class#SqlConnector#0" />
+            <element signature="method#isExpert#0;class#SqlConnector#0" />
+            <element signature="method#getRegisterName#0;class#SqlConnector#0" />
+            <element signature="method#getUserBalance#0;class#SqlConnector#0" />
+            <element signature="method#getUserPassword#0;class#SqlConnector#0" />
+            <element signature="method#getRegUplimit#0;class#SqlConnector#0" />
+            <element signature="method#getRegCurAmount#0;class#SqlConnector#0" />
+            <element signature="method#register#0;class#SqlConnector#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/MyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/SqlConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getOfficeName#0;class#SqlConnector#0" />
+            <element signature="method#isExpert#0;class#SqlConnector#0" />
+            <element signature="method#getRegisterName#0;class#SqlConnector#0" />
+            <element signature="method#getUserBalance#0;class#SqlConnector#0" />
+            <element signature="method#getUserPassword#0;class#SqlConnector#0" />
+            <element signature="method#getRegUplimit#0;class#SqlConnector#0" />
+            <element signature="method#getRegCurAmount#0;class#SqlConnector#0" />
+            <element signature="method#register#0;class#SqlConnector#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="53" column="37" lean-forward="true" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/RegisterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1770">
+          <caret line="118" column="5" selection-start-line="118" selection-start-column="5" selection-end-line="118" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
+            <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
+            <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/MyApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
@@ -410,8 +640,8 @@
             <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
             <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
             <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
             <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
-            <element signature="method#onRegisterNameSelected#0;class#RegisterController#0" />
           </folding>
         </state>
       </provider>
@@ -420,9 +650,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
           <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -445,8 +672,8 @@
             <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
             <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
             <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
             <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
-            <element signature="method#onRegisterNameSelected#0;class#RegisterController#0" />
           </folding>
         </state>
       </provider>
@@ -455,9 +682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -470,8 +694,8 @@
             <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
             <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
             <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
             <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
-            <element signature="method#onRegisterNameSelected#0;class#RegisterController#0" />
           </folding>
         </state>
       </provider>
@@ -490,9 +714,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
           <caret line="27" column="41" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -520,22 +741,6 @@
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/MyApplication/Controller.java" />
     <entry file="file://$PROJECT_DIR$/src/MyApplication/loginController.java" />
-    <entry file="file://$PROJECT_DIR$/src/MyApplication/WelcomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#257#258#0" expanded="true" />
-            <element signature="e#291#292#0" expanded="true" />
-            <element signature="e#1134#1135#0" expanded="true" />
-            <element signature="e#1168#1169#0" expanded="true" />
-            <element signature="e#1211#1212#0" expanded="true" />
-            <element signature="e#1229#1230#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../mysql-connector-java-8.0.11/mysql-connector-java-8.0.11.jar!/com/mysql/cj/jdbc/exceptions/SQLError.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -543,30 +748,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/WelcomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MyApplication/MyApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MyApplication/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="53" column="37" lean-forward="true" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MyApplication/SqlConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="32" />
+        <state relative-caret-position="374">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -575,15 +770,98 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MyApplication/RegisterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-125">
-          <caret line="118" column="5" selection-start-line="118" selection-start-column="5" selection-end-line="118" selection-end-column="5" />
+        <state relative-caret-position="15">
+          <caret line="250" selection-start-line="250" selection-end-line="251" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setOfficeNameHandler#0;class#RegisterController#0" />
             <element signature="method#onOfficeNameSelected#0;class#RegisterController#0" />
             <element signature="method#setDocNameHandler#0;class#RegisterController#0" />
+            <element signature="method#onDocNameSelected#0;class#RegisterController#0" />
             <element signature="method#setRegisterNameHandler#0;class#RegisterController#0" />
-            <element signature="method#onRegisterNameSelected#0;class#RegisterController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewIncomeModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="e#820#821#0" expanded="true" />
+            <element signature="e#857#858#0" expanded="true" />
+            <element signature="e#897#898#0" expanded="true" />
+            <element signature="e#935#936#0" expanded="true" />
+            <element signature="e#975#976#0" expanded="true" />
+            <element signature="e#1013#1014#0" expanded="true" />
+            <element signature="e#1053#1054#0" expanded="true" />
+            <element signature="e#1091#1092#0" expanded="true" />
+            <element signature="e#1131#1132#0" expanded="true" />
+            <element signature="e#1169#1170#0" expanded="true" />
+            <element signature="e#1209#1210#0" expanded="true" />
+            <element signature="e#1247#1248#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#1538:1956" />
+            <element signature="class#2030:2448" />
+            <element signature="class#2521:2939" />
+            <element signature="class#2885:3288" />
+            <element signature="class#3360:3763" />
+            <element signature="class#3835:4238" />
+            <element signature="class#4310:4713" />
+            <element signature="class#4785:5188" />
+            <element signature="class#5260:5663" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="44" selection-start-line="44" selection-end-line="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/DocView.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="42" column="41" lean-forward="true" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/DocViewRegisterModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyApplication/SqlConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="97" column="93" selection-start-line="97" selection-start-column="93" selection-end-line="97" selection-end-column="93" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getOfficeName#0;class#SqlConnector#0" />
+            <element signature="method#isExpert#0;class#SqlConnector#0" />
+            <element signature="method#getRegisterName#0;class#SqlConnector#0" />
+            <element signature="method#getUserBalance#0;class#SqlConnector#0" />
+            <element signature="method#getUserPassword#0;class#SqlConnector#0" />
+            <element signature="method#getRegUplimit#0;class#SqlConnector#0" />
+            <element signature="method#getRegCurAmount#0;class#SqlConnector#0" />
+            <element signature="method#register#0;class#SqlConnector#0" />
           </folding>
         </state>
       </provider>

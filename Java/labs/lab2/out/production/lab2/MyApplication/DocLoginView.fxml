@@ -23,7 +23,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="患者编号">
+            <Label text="医生编号">
                <font>
                   <Font size="15.0" />
                </font>
@@ -38,7 +38,7 @@
          </children>
       </GridPane>
       <Separator layoutX="4.0" layoutY="73.0" prefHeight="3.0" prefWidth="314.0" />
-      <Label layoutX="115.0" layoutY="31.0" scaleX="1.4" scaleY="1.4" scaleZ="1.4" text="挂号系统登录">
+      <Label layoutX="131.0" layoutY="31.0" scaleX="1.4" scaleY="1.4" scaleZ="1.4" text="医生登录">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

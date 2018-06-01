@@ -3,6 +3,7 @@ package MyApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -26,19 +27,32 @@ public class LoginController{
     }
 
     @FXML
-    public void onClick(ActionEvent e){
+    public void onClick(ActionEvent e) {
         System.out.println(userid.getText());
         System.out.println(userpwd.getText());
-//        if (userid.getText().compareTo("123") && userpwd)
-        if (isUser) {
-            userLoginSuccess(userid.getText());
+        String uid = userid.getText();
+        String pwd = userpwd.getText();
+        if (uid.equals("") || pwd.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("字段不合法！");
+            alert.setContentText("用户名或者密码不能为空！");
+            alert.showAndWait();
         }
-        else{
+        else if (isUser && pwd.equals(SqlConnector.getUserPassword(uid))) {
+            userLoginSuccess(uid);
+        } else if (pwd.equals(SqlConnector.getDocPassword(uid))){
             docLoginSuccess(userid.getText());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("登录失败！");
+            alert.setContentText("用户名不存在或者密码不正确");
+            alert.showAndWait();
         }
     }
 
-    private void userLoginSuccess(String username) {
+    private void userLoginSuccess(String pid) {
         try {
             Stage curStage = myApp.curStage;
             curStage.close();
@@ -48,7 +62,7 @@ public class LoginController{
             Pane root = loader.load();
 
             RegisterController registerController = loader.getController();
-            registerController.setMyApp(this.myApp,username);
+            registerController.setMyApp(this.myApp,pid);
 
             Scene scene = new Scene(root);
             curStage.setScene(scene);
@@ -59,10 +73,21 @@ public class LoginController{
         }
     }
 
-    private void docLoginSuccess(String username) {
+    private void docLoginSuccess(String pid) {
         try {
-//            Stage curStage = myApp.curStage;
+            Stage curStage = myApp.curStage;
+            curStage.close();
 
+            FXMLLoader loader;
+            loader = new FXMLLoader(getClass().getResource("DocView.fxml"));
+            Pane root = loader.load();
+
+            DocViewController docViewController = loader.getController();
+            docViewController.setMyApp(this.myApp,pid);
+
+            Scene scene = new Scene(root);
+            curStage.setScene(scene);
+            curStage.show();
         }
         catch (Exception e){
             e.printStackTrace();
