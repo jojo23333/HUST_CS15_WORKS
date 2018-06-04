@@ -41,13 +41,13 @@ public class LoginController{
         }
         else if (isUser && pwd.equals(SqlConnector.getUserPassword(uid))) {
             userLoginSuccess(uid);
-        } else if (pwd.equals(SqlConnector.getDocPassword(uid))){
+        } else if (!isUser && pwd.equals(SqlConnector.getDocPassword(uid))){
             docLoginSuccess(userid.getText());
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText("登录失败！");
-            alert.setContentText("用户名不存在或者密码不正确");
+            alert.setContentText("用户名不存在或密码不正确");
             alert.showAndWait();
         }
     }

@@ -10,18 +10,23 @@ public class SqlConnector {
     static private ResultSet res;
 
 
-    public SqlConnector(String nurl, String nUserName, String Password){
-        String url = "jdbc:mysql://localhost:3306/javalab";
-        String username = "java";
-        String password = "password";
+    public SqlConnector(String nurl, String nUserName, String nPassword){
+        String url = "jdbc:mysql://localhost:3306/javalab?characterEncoding=utf8&useSSL=false&serverTimezone=UTC";
+        String username = "root";
+        String password = "li83916386";
+        
+        url = nurl.equals("")? url : nurl;
+        username = nUserName.equals("")? username : nUserName;
+        password = nPassword.equals("")? password : nPassword;
+        
 
         System.out.println("Connecting database...");
         try {
             this.connection = DriverManager.getConnection(url, username, password);
             System.out.println("Database connected!");
-            sql =   "create view income_view as select register.docid,register_category.speciallist, count(*) as num, sum(register.reg_fee) as fee " +
-                    "from register join register_category on register_category.catid = register.catid " +
-                    "group by register.catid, speciallist;";
+            sql =   "create view income_view as select doctor.docid,register_category.speciallist, count(*) as num, sum(register.reg_fee) as fee " +
+                    "from register join register_category on register_category.catid = register.catid right join doctor on register.docid = doctor.docid " +
+                    "group by doctor.docid, speciallist;";
             stmt = connection.createStatement();
             stmt.execute(sql);
             System.out.println("Income view created!");
@@ -36,7 +41,38 @@ public class SqlConnector {
         }
     }
 
-    static public void getOfficeName(List<String[]> ans) {
+    public SqlConnector(String nurl, String nUserName, String nPassword){
+	    String url = "jdbc:mysql://localhost:3306/javalab?characterEncoding=utf8&useSSL=false&serverTimezone=UTC";
+	    String username = "root";
+	    String password = "li83916386";
+	    
+	    url = nurl.equals("")? url : nurl;
+	    username = nUserName.equals("")? username : nUserName;
+	    password = nPassword.equals("")? password : nPassword;
+	    
+	
+	    System.out.println("Connecting database...");
+	    try {
+	        this.connection = DriverManager.getConnection(url, username, password);
+	        System.out.println("Database connected!");
+	        sql =   "create view income_view as select doctor.docid,register_category.speciallist, count(*) as num, sum(register.reg_fee) as fee " +
+	                "from register join register_category on register_category.catid = register.catid right join doctor on register.docid = doctor.docid " +
+	                "group by doctor.docid, speciallist;";
+	        stmt = connection.createStatement();
+	        stmt.execute(sql);
+	        System.out.println("Income view created!");
+	        stmt.close();
+	    }
+	    catch (SQLSyntaxErrorException e){
+	        System.out.println("Income view exist!");
+	    }
+	    catch(SQLException e)
+	    {
+	        throw new IllegalStateException("Cannot connect the database!", e);
+	    }
+	}
+
+	static public void getOfficeName(List<String[]> ans) {
         try {
             stmt = connection.createStatement();
             sql = new String("SELECT * FROM department;");
@@ -263,6 +299,10 @@ public class SqlConnector {
                 isSpecial = res.getBoolean("speciallist") ? "专家号" : "普通号";
                 num = String.valueOf(res.getInt("num"));
                 income = String.valueOf(res.getInt("fee"));
+                if (income.equals("0")) {
+                	num = "0";
+                	isSpecial = " ";
+                }
                 ans.add(new DocViewIncomeModel(offName, docId, docName, isSpecial, num, income));
             }
             stmt.close();
@@ -293,14 +333,23 @@ public class SqlConnector {
             se.printStackTrace();
         }
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        String sql = "drop view income_view";
-        stmt = connection.createStatement();
-        stmt.execute(sql);
-        stmt.close();
-        connection.close();
-        super.finalize();
+    
+    static public void deleteView() {
+    	try {
+	        String sql = "drop view income_view;";
+	        stmt = connection.createStatement();
+	        stmt.execute(sql);
+	        System.out.println("Delete View!");
+	        stmt.close();
+    	}
+    	catch(SQLException se){
+            // 处理 JDBC 错误
+            se.printStackTrace();
+        }
     }
+
+//    @Override
+//    protected void finalize() throws Throwable {
+//        super.finalize();
+//    }
 }

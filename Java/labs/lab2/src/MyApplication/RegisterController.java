@@ -47,7 +47,7 @@ public class RegisterController {
                 }
             }
         });
-//        this.registerClass.setValue("普通号");
+//        this.registerClass.setValue("普�?�号");
     }
 
     @FXML void onOfficeNameClicked(){
@@ -84,7 +84,7 @@ public class RegisterController {
 
 
     void setOfficeNameHandler() {
-        this.officeName.addEventHandler(KeyEvent.KEY_PRESSED, t -> this.officeName.hide());
+//        this.officeName.addEventHandler(KeyEvent.KEY_PRESSED, t -> this.officeName.hide());
         this.officeName.addEventHandler(KeyEvent.KEY_RELEASED, t -> {
             String val = officeName.getEditor().getText();
             if (t.getCode() == KeyCode.ESCAPE)
@@ -129,7 +129,7 @@ public class RegisterController {
     }
 
     void setDocNameHandler(){
-        this.docName.addEventHandler(KeyEvent.KEY_PRESSED, t -> this.docName.hide());
+//        this.docName.addEventHandler(KeyEvent.KEY_PRESSED, t -> this.docName.hide());
         this.docName.addEventHandler(KeyEvent.KEY_RELEASED, t -> {
             String val = docName.getEditor().getText();
             if (t.getCode() == KeyCode.ESCAPE)
@@ -180,7 +180,7 @@ public class RegisterController {
     }
 
     void setRegisterNameHandler(){
-        this.registerName.addEventHandler(KeyEvent.KEY_PRESSED, t -> this.registerName.hide());
+//        this.registerName.addEventHandler(KeyEvent.KEY_PRESSED, t -> this.registerName.hide());
         this.registerName.addEventHandler(KeyEvent.KEY_RELEASED, t -> {
             String val = registerName.getEditor().getText();
             if (t.getCode() == KeyCode.ESCAPE )
@@ -214,9 +214,10 @@ public class RegisterController {
         String choice = registerName.getEditor().getText();
         String id = choice.substring(choice.lastIndexOf(" ")+1);
         data.registerNameId = id;
-        payDemand.setText(String.valueOf(data.getfee()) + " ￥ / 余额： " + data.balance + " ￥");
+        payDemand.setText(String.valueOf(data.getfee()) + " ￥ / 余额: " + data.balance + " ￥");
         if (data.fee <= data.balance) {
             payment.setDisable(true);
+            payChange.setText("0 ￥");
         }
         else {
             payment.setDisable(false);
@@ -332,7 +333,7 @@ class loginSqlDataConnector{
         } else {
             args[1] = SqlConnector.register(pid,docId,registerNameId,curAmount,fee);
             if (args[1] != null) {
-                args[0] = "挂号成功！您的挂号号码为：" + args[1];
+                args[0] = "挂号成功！您的挂号号码为: " + args[1];
 //                System.out.println(msg);
                 SqlConnector.updateUserBanlance(this.pid, Math.max(this.balance-this.fee, 0));
                 return true;
