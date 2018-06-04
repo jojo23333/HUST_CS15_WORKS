@@ -1,3 +1,4 @@
+package lab1;
 import java.util.Stack;
 import java.util.NoSuchElementException;
 
