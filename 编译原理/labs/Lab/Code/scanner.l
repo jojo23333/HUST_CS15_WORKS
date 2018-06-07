@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "grammarTree.h"
 #include "syntax.tab.h"
-	int show_info = 1;
+	int show_info = 0;
 	int yycolumn = 1;
 	#define YY_USER_ACTION \
 		yylloc.first_line = yylloc.last_line = yylineno; \

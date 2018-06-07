@@ -4,6 +4,7 @@
 #include "lex.yy.c"
 #include "grammarTree.h"
 void yyerror(const char* fmt, ...);
+// yydebug = 1;
 %}
 /*Declare tokens*/
 %error-verbose
@@ -53,7 +54,7 @@ Program : ExtDefList {
             printf("The grammar-tree of \"Grammar Analyzing\" is printed!\n\n"); 
         }
 };
-ExtDefList : ExtDef ExtDefList {$$ = newGrammarTreeNode("ExtDefList", 1, $1); }
+ExtDefList : ExtDef ExtDefList {$$ = newGrammarTreeNode("ExtDefList", 2, $1, $2); }
 | {$$ = newGrammarTreeLeaf("ExtDefList", -1); }
 ;
 ExtDef : Specifier ExtDecList SEMI {$$ = newGrammarTreeNode("ExtDef", 3, $1, $2, $3); }
@@ -92,7 +93,9 @@ ParamDec : Specifier VarDec {$$ = newGrammarTreeNode("ParamDec", 2, $1, $2); }
 
 // Statements
 CompSt : LC DefList StmtList RC {$$ = newGrammarTreeNode("CompSt", 4, $1, $2, $3, $4); }
-| error RC { $$ = newGrammarTreeNode("CompSt", 1, $2); error_count++;}
+| error RC { $$ = newGrammarTreeNode("CompSt", 1, $2); 
+    fprintf(stderr, "error CompSt!!\n");
+    error_count++;}
 ;
 StmtList : Stmt StmtList {$$ = newGrammarTreeNode("StmtList", 2, $1, $2); }
 | {$$ = newGrammarTreeLeaf("StmtList", -1); }
@@ -103,7 +106,9 @@ Stmt : Exp SEMI  {$$ = newGrammarTreeNode("Stmt", 2, $1, $2); }
 | IF LP Exp RP Stmt  %prec LOWER_THAN_ELSE  {$$ = newGrammarTreeNode("Stmt", 5, $1, $2, $3, $4, $5); }
 | IF LP Exp RP Stmt ELSE Stmt   {$$ = newGrammarTreeNode("Stmt", 7, $1, $2, $3, $4, $5, $6, $7); }
 | WHILE LP Exp RP Stmt  {$$ = newGrammarTreeNode("Stmt", 5, $1, $2, $3, $4, $5); }
-| error SEMI {$$ = newGrammarTreeNode("Stmt", 1, $2); error_count++;}
+| error SEMI {$$ = newGrammarTreeNode("Stmt", 1, $2); 
+    fprintf(stderr, "error semi!!\n");
+    error_count++;}
 ; 
 
 // Local Definitions
@@ -138,7 +143,9 @@ Exp : Exp ASSIGNOP Exp {$$ = newGrammarTreeNode("Exp", 3, $1, $2, $3); }
 | ID            {$$ = newGrammarTreeNode("Exp", 1, $1); }
 | INT           {$$ = newGrammarTreeNode("Exp", 1, $1); }
 | FLOAT         {$$ = newGrammarTreeNode("Exp", 1, $1); }
-| error RP      {$$ = newGrammarTreeNode("Exp", 1, $2); error_count++;}
+| error RP      {$$ = newGrammarTreeNode("Exp", 1, $2); 
+    fprintf(stderr, "error EXP!!\n");
+    error_count++;}
 ;        
 Args : Exp COMMA Args   {$$ = newGrammarTreeNode("Args", 3, $1, $2, $3); }
 | Exp   {$$ = newGrammarTreeNode("Args", 1, $1); }

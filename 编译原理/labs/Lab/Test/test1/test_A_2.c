@@ -4,5 +4,6 @@ int sub()
 	c = 2;
 	a = b / c + 3 * a + 12;
 	b = !a && 4 >= 4 || a != 6;
+	c = a % b;
 	return b;
 }
