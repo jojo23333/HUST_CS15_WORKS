@@ -1,12 +1,12 @@
 #include "grammarTree.h"
 
 
-grammarTree newGrammarTreeLeaf(char* name, int line)
+GrammarTree newGrammarTreeLeaf(char* name, int line)
 {
     int i;
     char* cache;     
-    grammarTree current = (grammarTree)malloc(sizeof(grammarTreeNode));     //Create node for current grammar unit
-    grammarTree tmp;
+    GrammarTree current = (GrammarTree)malloc(sizeof(GrammarTreeNode));     //Create node for current grammar unit
+    GrammarTree tmp;
     current->name = name;
    // This grammar unit is terminal or void rule
     current->line = line;
@@ -40,23 +40,23 @@ grammarTree newGrammarTreeLeaf(char* name, int line)
     return current;
 }
 
-grammarTree newGrammarTreeNode(char* name, int num, ...)
+GrammarTree newGrammarTreeNode(char* name, int num, ...)
 {
     int i;
     char* cache;
     va_list variables;       
-    grammarTree current = (grammarTree)malloc(sizeof(grammarTreeNode));     //Create node for current grammar unit
-    grammarTree tmp;
+    GrammarTree current = (GrammarTree)malloc(sizeof(GrammarTreeNode));     //Create node for current grammar unit
+    GrammarTree tmp;
     current->name = name;
     va_start(variables, num);           // Init the variable parameter list
     if (num > 0)
     {
-        tmp = va_arg(variables, grammarTree);
+        tmp = va_arg(variables, GrammarTree);
         current->lchild = tmp;
         current->line = tmp->line;      // Current grammar unit's line number is equal to its left child's
         for (i = 0; i < num - 1; i++)
         {                               // Brothers
-            tmp->rchild = va_arg(variables, grammarTree);
+            tmp->rchild = va_arg(variables, GrammarTree);
             tmp = tmp->rchild;
         }
         // Modify the line number when reduce using rule "Stmt->SimpleStmt" and SimpleStmt is Epsilon
@@ -70,7 +70,7 @@ grammarTree newGrammarTreeNode(char* name, int num, ...)
 }
 
 
-void traverseGrammerTree(grammarTree gmtree, int level)
+void traverseGrammerTree(GrammarTree gmtree, int level)
 {
     int i;
     if (gmtree != NULL)

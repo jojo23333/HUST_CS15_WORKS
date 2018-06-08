@@ -13,38 +13,38 @@ extern FILE* yyin;
 extern int yylineno;
 extern int yyparse();
 
-typedef struct grammarTreeNode
+typedef struct GrammarTreeNode
 {
     int line;       // the number of its line
     char* name;     // the name of this grammar unit
-    struct grammarTreeNode* lchild;
-    struct grammarTreeNode* rchild;
+    struct GrammarTreeNode* lchild;
+    struct GrammarTreeNode* rchild;
     union           // the value of this grammar unit
     {
         int int_value;
         float float_value;
         char * string_value;
     };
-} grammarTreeNode;
+} GrammarTreeNode;
 
-typedef struct grammarTreeNode* grammarTree;
+typedef struct GrammarTreeNode* GrammarTree;
 
 /* Create GrammarTree Leaf Nodes during the lexical analyse
  * name: the name of the grammar unit
  * line: the line where the the leaf unit lies
 */
-grammarTree newGrammarTreeLeaf(char* name, int line);
+GrammarTree newGrammarTreeLeaf(char* name, int line);
 
 
 /* Create GrammerTree Node during grammer analyse
  * 
 */
-grammarTree newGrammarTreeNode(char* name, int num, ...);
+GrammarTree newGrammarTreeNode(char* name, int num, ...);
 
 /* Traverse GrammarTree Using Pre-Order
  * tree: the grammar tree
  * level: the number of the level
  */
-void traverseGrammerTree(grammarTree gmtree, int level);
+void traverseGrammerTree(GrammarTree gmtree, int level);
 
 #endif

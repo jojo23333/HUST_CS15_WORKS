@@ -9,7 +9,7 @@ void yyerror(const char* fmt, ...);
 /*Declare tokens*/
 %error-verbose
 %union {
-    grammarTree grammar_node;
+    GrammarTree grammar_node;
 }
 
 /*Define priority*/
