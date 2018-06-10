@@ -8,9 +8,10 @@ GrammarTree newGrammarTreeLeaf(char* name, int line)
     GrammarTree current = (GrammarTree)malloc(sizeof(GrammarTreeNode));     //Create node for current grammar unit
     GrammarTree tmp;
     current->name = name;
+    current->lchild = current->rchild = NULL;
    // This grammar unit is terminal or void rule
     current->line = line;
-    if (!strcmp(current->name, "ID"))
+    if (!strcmp(current->name, "ID") || !strcmp(current->name, "TYPE"))
     {
             cache = (char *)malloc(sizeof(char) * strlen(yytext));
             strcpy(cache, yytext);
@@ -48,6 +49,7 @@ GrammarTree newGrammarTreeNode(char* name, int num, ...)
     GrammarTree current = (GrammarTree)malloc(sizeof(GrammarTreeNode));     //Create node for current grammar unit
     GrammarTree tmp;
     current->name = name;
+    current->lchild = current->rchild = NULL;
     va_start(variables, num);           // Init the variable parameter list
     if (num > 0)
     {

@@ -13,6 +13,8 @@ extern void parseExtDecList(GrammarTree ext_dec_list);
 
 extern TypeP parseSpecifier(GrammarTree specifier);
 
-extern TypeP parseFunDec(TreeNode* root, TypeP type);
+extern TypeP parseVarDec(GrammarTree var_dec); 
+
+extern TypeP parseFunDec(GrammarTree fun_dec, TypeP return_type);
 
 #endif

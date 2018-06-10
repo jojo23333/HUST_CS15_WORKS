@@ -27,6 +27,8 @@ void yyerror(const char* fmt, ...);
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
 
+%token INT_TYPE FLOAT_TYPE
+
 %token <grammar_node> INT 
 %token <grammar_node> FLOAT 
 %token <grammar_node> ID TYPE
@@ -55,7 +57,7 @@ Program : ExtDefList {
         }
 };
 ExtDefList : ExtDef ExtDefList {$$ = newGrammarTreeNode("ExtDefList", 2, $1, $2); }
-| {$$ = newGrammarTreeLeaf("ExtDefList", -1); }
+| {$$ = newGrammarTreeLeaf("Empty", -1); }
 ;
 ExtDef : Specifier ExtDecList SEMI {$$ = newGrammarTreeNode("ExtDef", 3, $1, $2, $3); }
 | Specifier SEMI {$$ = newGrammarTreeNode("ExtDef", 2, $1, $2); }
@@ -73,7 +75,7 @@ StructSpecifier : STRUCT OptTag LC DefList RC {$$ = newGrammarTreeNode("StructSp
 | STRUCT Tag {$$ = newGrammarTreeNode("StructSpecifier", 2, $1, $2);}
 ; 
 OptTag : ID {$$ = newGrammarTreeNode("OptTag", 1, $1); }
-| {$$ = newGrammarTreeLeaf("OptTag", -1); }
+| {$$ = newGrammarTreeLeaf("Empty", -1); }
 ;
 Tag : ID {$$ = newGrammarTreeNode("Tag", 1, $1); }
 ;
@@ -98,7 +100,7 @@ CompSt : LC DefList StmtList RC {$$ = newGrammarTreeNode("CompSt", 4, $1, $2, $3
     error_count++;}
 ;
 StmtList : Stmt StmtList {$$ = newGrammarTreeNode("StmtList", 2, $1, $2); }
-| {$$ = newGrammarTreeLeaf("StmtList", -1); }
+| {$$ = newGrammarTreeLeaf("Empty", -1); }
 ;
 Stmt : Exp SEMI  {$$ = newGrammarTreeNode("Stmt", 2, $1, $2); }
 | CompSt  {$$ = newGrammarTreeNode("Stmt", 1, $1); }
@@ -113,7 +115,7 @@ Stmt : Exp SEMI  {$$ = newGrammarTreeNode("Stmt", 2, $1, $2); }
 
 // Local Definitions
 DefList : Def DefList {$$ = newGrammarTreeNode("DefList", 2, $1, $2); }
-| {$$ = newGrammarTreeLeaf("DefList", -1); }
+| {$$ = newGrammarTreeLeaf("Empty", -1); }
 ;
 Def : Specifier DecList SEMI {$$ = newGrammarTreeNode("Def", 3, $1, $2, $3); }
 ;
