@@ -1,10 +1,10 @@
 #ifndef _GRAMMARTREE_H
 #define _GRAMMARTREE_H
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdarg.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
 
 int error_count;
 

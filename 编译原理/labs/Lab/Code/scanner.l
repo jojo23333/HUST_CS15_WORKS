@@ -44,11 +44,11 @@ WHILE			"while"
 
 DECIMAL         	[0-9]
 HEXDICIMAL      	{DECIMAL}|[a-fA-F]
-CONSTANT_HEXINT		[+-]?0[Xx]{HEXDICIMAL}+
-CONSTANT_OCTINT		[+-]?0[0-7]+
-CONSTANT_INT    	[+-]?[1-9]{DECIMAL}*
-CONSTANT_FLOAT  	[+-]?([0-9]*\.?[0-9]+|[0-9]+\.)
-CONSTANT_FLOATE 	[+-]?[0-9]+\.?[0-9]*([eE]{CONSTANT_INT})
+CONSTANT_HEXINT		[-]?0[Xx]{HEXDICIMAL}+
+CONSTANT_OCTINT		[-]?0[0-7]*
+CONSTANT_INT    	[-]?[1-9]{DECIMAL}*
+CONSTANT_FLOAT  	[-]?([0-9]*\.?[0-9]+|[0-9]+\.)
+CONSTANT_FLOATE 	[-]?[0-9]+\.?[0-9]*([eE]{CONSTANT_INT})
 
 COMMENT         	(\/\/.*)|(\/\*((\*[^\/]?)|[^\*]*)*\*\/)
 BLANK           	" "|\t

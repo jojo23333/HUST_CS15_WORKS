@@ -31,7 +31,8 @@
                 "/usr/local/include",
                 "/usr/include",
                 "${workspaceRoot}",
-                "/home/jojo/repo/HUST_CS15_WORKS/编译原理/labs/Lab/Code"
+                "${workspaceRoot}",
+                "/usr/include/c++/8.1.0/tr1"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
@@ -41,8 +42,7 @@
                     "/usr/include/c++/8.1.0/x86_64-pc-linux-gnu",
                     "/usr/local/include",
                     "/usr/include",
-                    "${workspaceRoot}",
-                    "/home/jojo/repo/HUST_CS15_WORKS/编译原理/labs/Lab/Code"
+                    "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""

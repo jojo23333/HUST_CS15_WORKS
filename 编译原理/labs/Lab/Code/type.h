@@ -18,7 +18,6 @@ struct Type_
 		int basic;
 		struct { struct Type_* elem; int size; } array;
 		struct FieldList_* structure;
-		struct FieldList_* function;
 	} u;
 };
 

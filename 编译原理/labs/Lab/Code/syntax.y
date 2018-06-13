@@ -1,8 +1,15 @@
 %locations 
 %{
-#include <stdio.h>
+#include "stdio.h"
+#include "string.h"
+#include "stdbool.h"
+#include "stdarg.h"
+#include "stdlib.h"
 #include "lex.yy.c"
 #include "grammarTree.h"
+#include "semantic.h"
+#include "symbolTable.h"
+
 void yyerror(const char* fmt, ...);
 // yydebug = 1;
 %}
@@ -54,6 +61,10 @@ Program : ExtDefList {
             traverseGrammerTree($$, 0);
             printf("__________________________________________________\n\n"); 
             printf("The grammar-tree of \"Grammar Analyzing\" is printed!\n\n"); 
+            printf("Initialize symbol table\n");
+            initSymbolTable();
+            printf("Start Semantic analyse");
+		    semanticAnalyse($$);
         }
 };
 ExtDefList : ExtDef ExtDefList {$$ = newGrammarTreeNode("ExtDefList", 2, $1, $2); }

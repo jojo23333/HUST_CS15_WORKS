@@ -13,6 +13,11 @@ int main(int argc, char** argv)
             return 1;
         }
     }
+    // if (!(yyin = fopen("../Test/test2/B_2.c", "r")))
+    // {
+    //     perror(argv[1]);
+    //     return 1;
+    // }
 	yyparse();
 	return 0;
 }
