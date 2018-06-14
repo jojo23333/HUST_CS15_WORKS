@@ -264,12 +264,12 @@ AERROR          	.
 {WRONGIDENTIFIER} {
     //printf("Wrong Identifier %s at Line %d column",yytext, yylineno);
     printf("Error type A at Line %d column %d: Wrong format of identifier.\n", yylineno, yylloc.first_column); 
-    exit(-1);
+    // exit(-1);
 }
 {AERROR} {
     //printf("Error: %s at Line %d column",yytext, yylineno);
     printf("Error type A at Line %d column %d: Mysterious characters \"%s\".\n", yylineno, yylloc.first_column, yytext); 
-    exit(-1);
+    // exit(-1);
 }
 
 

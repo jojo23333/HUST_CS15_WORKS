@@ -17,7 +17,7 @@ int main()
     float type[10];
     int result;
     int i, N;
-    while(i ！ = N){
+    while(i != N){
         p[i].name = name[i];
         p[i].type = (type[i * 3] - 2.2) / 2.3
         i = i + 1;

@@ -6,12 +6,15 @@
 #include "syntax.tab.h"
 
 int tab = 0;
+int debug = 0;
 #define make_tab {for(int i=0; i<tab; i++) putchar(' '); tab+=2;}
 
 void semanticAnalyse(GrammarTree root) 
 {
-	make_tab;
-	printf("semanticAnalyse\n");
+	if (debug) {
+		make_tab;
+		printf("semanticAnalyse\n");
+	}
     if (root!=NULL) {
         parseProgram(root);
     }
@@ -19,9 +22,9 @@ void semanticAnalyse(GrammarTree root)
 
 void parseProgram(GrammarTree root)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseProgram\n");
-	
+	}
 
     if (root->lchild != NULL) {
         parseExtDefList(root->lchild);
@@ -31,9 +34,9 @@ void parseProgram(GrammarTree root)
 
 void parseExtDefList(GrammarTree ext_def_list) 
 {
-	make_tab;
+	if (debug) { make_tab;
     printf("parseExtDefList\n");
-	
+	}
 
     if (!strcmp(ext_def_list->name, "Empty")) {
         tab-=2; return;
@@ -48,9 +51,10 @@ void parseExtDefList(GrammarTree ext_def_list)
 
 void parseExtDef(GrammarTree ext_def) 
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseExtDef\n");
-	
+	}
+
     GrammarTree specifier = ext_def->lchild;
     
     assert(specifier!=NULL);
@@ -113,8 +117,9 @@ void parseExtDef(GrammarTree ext_def)
 
 TypeP parseSpecifier(GrammarTree specifier) 
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseSpecifier\n");
+	}
 	
     assert(specifier!=NULL && specifier->lchild!=NULL);
 
@@ -203,8 +208,9 @@ TypeP parseSpecifier(GrammarTree specifier)
 
 FieldListP parseDefList(GrammarTree def_list, bool instruct)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseDefList\n");
+	}
 	
     FieldListP head = NULL, nxt_def = NULL, tmp_def;
     GrammarTree def = NULL;
@@ -228,8 +234,9 @@ FieldListP parseDefList(GrammarTree def_list, bool instruct)
 
 FieldListP parseDef(GrammarTree def, bool instruct)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseDef\n");
+	}
 	
     GrammarTree specifier, dec_list, dec;
     // Def --> Specifier DecList SEMI
@@ -288,14 +295,15 @@ FieldListP parseDef(GrammarTree def, bool instruct)
 //VarDec --> ID | VarDec LB INT RB
 FieldListP parseVarDec(GrammarTree var_dec, TypeP type, bool inStruct)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseVarDec\n");
+	}
 	
 	TypeP lasttype = type;
 	GrammarTree child = var_dec->lchild;
 	FieldListP result = (FieldListP)malloc(sizeof(FieldList_));
 	GrammarTree next;
-	printf("child: %s\n",child->name);//,child->string_value);
+	// printf("child: %s\n",child->name);//,child->string_value);
 	while(!strcmp(child->name, "VarDec"))
 	{
 		TypeP newtype = (TypeP)malloc(sizeof(Type_));
@@ -314,7 +322,7 @@ FieldListP parseVarDec(GrammarTree var_dec, TypeP type, bool inStruct)
 
 	
 	TableNode* temp_node = insertSymbolTable(result->name, result->type);
-	printf("Inserting variable %s\n",result->name);
+	// printf("Inserting variable %s\n",result->name);
 	if(temp_node == NULL)
 	{
 		if(inStruct)
@@ -328,9 +336,9 @@ FieldListP parseVarDec(GrammarTree var_dec, TypeP type, bool inStruct)
 
 TypeP parseExp(GrammarTree root)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseExp\n");
-	tab -= 2;
+	}
 
 	GrammarTree child = root->lchild;
 	if(strcmp(child->name, "Exp") == 0)
@@ -449,7 +457,7 @@ TypeP parseExp(GrammarTree root)
 				}
 				else
 				{
-					printf("Field %s of type %d",field->name, field->type->kind);
+					// printf("Field %s of type %d",field->name, field->type->kind);
 					tab-=2; return field->type;
 				}
 
@@ -634,9 +642,9 @@ TypeP parseExp(GrammarTree root)
 
 TypeP parseFunDec(GrammarTree root, TypeP lasttype)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseFunDec\n");
-	
+	}
 	
 	TypeP type = (TypeP)malloc(sizeof(Type_));
 	GrammarTree child = root->lchild;
@@ -676,9 +684,9 @@ TypeP parseFunDec(GrammarTree root, TypeP lasttype)
 //CompSt --> LC DefList StmtList RC
 void parseCompSt(GrammarTree root, TypeP returntype)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseCompSt\n");
-	
+	}
 
 	GrammarTree child = root->lchild->rchild;
 	FieldListP head = parseDefList(child, false);
@@ -698,9 +706,9 @@ void parseCompSt(GrammarTree root, TypeP returntype)
 
 void parseStmt(GrammarTree root, TypeP returntype)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseStmt\n");
-	
+	}
 
 	GrammarTree child = root->lchild;
 	//Stmt --> Exp SEMI
@@ -766,9 +774,9 @@ void parseStmt(GrammarTree root, TypeP returntype)
 
 void parseExtDecList(GrammarTree root, TypeP type)
 {
-	make_tab;
+	if (debug) { make_tab;
 	printf("parseExtDecList\n");
-	
+	}
 
 	GrammarTree child = root->lchild;
 	while(true)

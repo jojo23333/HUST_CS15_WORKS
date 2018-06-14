@@ -2,9 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 #include "symbolTable.h"
-
+#include "grammarTree.h"
+#include "syntax.tab.h"
 
 TableNode** symbolTable;
+int print_symbol;
+
+void printType(TypeP type){
+	if (type == NULL)
+		printf("NULL TYPE !");
+	switch (type->kind) {
+		case BASIC:
+			if (type->u.basic == INT) 
+				printf("Basic type int");
+			else if (type->u.basic == FLOAT)
+				printf("Basic type float");
+			break;
+		case ARRAY:
+			printf("Array with size of %d with type: ", type->u.array.size);
+			printType(type->u.array.elem);
+			break;
+		case STRUCTURE:
+			printf("Structre with element:");
+			FieldListP ele = type->u.structure;
+			while (ele!=NULL) {
+				printf("%s, ", ele->name);
+				ele = ele->tail;
+			}
+			break;
+		case FUNCTION:
+			printf("Function");
+			break;
+	}
+}
 
 unsigned int hash(char* name)
 {
@@ -26,6 +56,16 @@ void initSymbolTable()
 TableNode* insertSymbolTable(char* name, TypeP type)
 {
 	TableNode* node = (TableNode*)malloc(sizeof(TableNode));
+
+	if (print_symbol) {
+		if (name==NULL)
+			printf("Inserting : Symbol: ANONYMOUS Type:");
+		else
+			printf("Inserting : Symbol: %s  Type: ", name);
+		printType(type);
+		printf("\n");
+	}
+
 	strcpy(node->name, name);
 	node->type = type;
 	unsigned int hash_num = hash(name);

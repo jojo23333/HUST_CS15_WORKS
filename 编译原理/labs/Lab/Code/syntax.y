@@ -11,6 +11,7 @@
 #include "symbolTable.h"
 
 void yyerror(const char* fmt, ...);
+int print_grammar_tree;
 // yydebug = 1;
 %}
 /*Declare tokens*/
@@ -56,12 +57,14 @@ void yyerror(const char* fmt, ...);
 Program : ExtDefList {
         $$ = newGrammarTreeNode("Program", 1, $1); 
         if (error_count==0) {
-            printf("\nNow print the grammar-tree of \"Grammar Analyzing\":\n");
-            printf("__________________________________________________\n\n"); 
-            traverseGrammerTree($$, 0);
-            printf("__________________________________________________\n\n"); 
-            printf("The grammar-tree of \"Grammar Analyzing\" is printed!\n\n"); 
-            printf("Initialize symbol table\n");
+            if (print_grammar_tree){
+                printf("\nNow print the grammar-tree of \"Grammar Analyzing\":\n");
+                printf("__________________________________________________\n\n"); 
+                traverseGrammerTree($$, 0);
+                printf("__________________________________________________\n\n"); 
+                printf("The grammar-tree of \"Grammar Analyzing\" is printed!\n\n"); 
+                printf("Initialize symbol table\n");
+            }
             initSymbolTable();
             printf("Start Semantic analyse");
 		    semanticAnalyse($$);
@@ -73,6 +76,10 @@ ExtDefList : ExtDef ExtDefList {$$ = newGrammarTreeNode("ExtDefList", 2, $1, $2)
 ExtDef : Specifier ExtDecList SEMI {$$ = newGrammarTreeNode("ExtDef", 3, $1, $2, $3); }
 | Specifier SEMI {$$ = newGrammarTreeNode("ExtDef", 2, $1, $2); }
 | Specifier FunDec CompSt {$$ = newGrammarTreeNode("ExtDef", 3, $1, $2, $3); }
+| error SEMI {
+    error_count++;
+
+}
 ;
 ExtDecList : VarDec {$$ = newGrammarTreeNode("ExtDecList", 1, $1); }
 | VarDec COMMA ExtDecList {$$ = newGrammarTreeNode("ExtDecList", 3, $1, $2, $3); }
@@ -97,11 +104,16 @@ VarDec : ID {$$ = newGrammarTreeNode("VarDec", 1, $1); }
 ;
 FunDec : ID LP VarList RP {$$ = newGrammarTreeNode("FunDec", 4, $1, $2, $3, $4); }
 | ID LP RP {$$ = newGrammarTreeNode("FunDec", 3, $1, $2, $3); }
+| error RP {error_count++;}
 ;
 VarList : ParamDec COMMA VarList {$$ = newGrammarTreeNode("VarList", 3, $1, $2, $3); }
 | ParamDec {$$ = newGrammarTreeNode("VarList", 1, $1); }
 ;
 ParamDec : Specifier VarDec {$$ = newGrammarTreeNode("ParamDec", 2, $1, $2); }
+| error COMMA { error_count++;}
+| error RB {
+    error_count++;
+}
 ;
 
 // Statements
@@ -120,7 +132,6 @@ Stmt : Exp SEMI  {$$ = newGrammarTreeNode("Stmt", 2, $1, $2); }
 | IF LP Exp RP Stmt ELSE Stmt   {$$ = newGrammarTreeNode("Stmt", 7, $1, $2, $3, $4, $5, $6, $7); }
 | WHILE LP Exp RP Stmt  {$$ = newGrammarTreeNode("Stmt", 5, $1, $2, $3, $4, $5); }
 | error SEMI {$$ = newGrammarTreeNode("Stmt", 1, $2); 
-    fprintf(stderr, "error semi!!\n");
     error_count++;}
 ; 
 
@@ -129,6 +140,7 @@ DefList : Def DefList {$$ = newGrammarTreeNode("DefList", 2, $1, $2); }
 | {$$ = newGrammarTreeLeaf("Empty", -1); }
 ;
 Def : Specifier DecList SEMI {$$ = newGrammarTreeNode("Def", 3, $1, $2, $3); }
+| error SEMI { error_count++; }
 ;
 DecList : Dec {$$ = newGrammarTreeNode("DecList", 1, $1); }
 | Dec COMMA DecList {$$ = newGrammarTreeNode("DecList", 3, $1, $2, $3); }
@@ -157,8 +169,20 @@ Exp : Exp ASSIGNOP Exp {$$ = newGrammarTreeNode("Exp", 3, $1, $2, $3); }
 | INT           {$$ = newGrammarTreeNode("Exp", 1, $1); }
 | FLOAT         {$$ = newGrammarTreeNode("Exp", 1, $1); }
 | error RP      {$$ = newGrammarTreeNode("Exp", 1, $2); 
-    fprintf(stderr, "error EXP!!\n");
+    // fprintf(stderr, "error EXP!!\n");
     error_count++;}
+| LP Exp error {
+	error_count++;
+}
+| ID LP Args error {
+	error_count++;
+}
+| ID LP error {
+	error_count++;
+}
+| Exp LB Exp error {
+	error_count++;
+}
 ;        
 Args : Exp COMMA Args   {$$ = newGrammarTreeNode("Args", 3, $1, $2, $3); }
 | Exp   {$$ = newGrammarTreeNode("Args", 1, $1); }
