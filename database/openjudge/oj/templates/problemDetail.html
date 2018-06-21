@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OnlineJudge</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">OnlineJudge</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/problems">Problems</a></li>
+                <li><a href="/submissions">Submissions</a></li>
+                <li><a href="/contests">Contests</a></li>
+            </ul>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
+        </div>
+</nav>
+
+<div class="container">
+<div class="row">
+    <div class="col-md-3 container" style="padding-top:40px">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-md-2">-->
+                    <a type="button" class="btn btn-primary col-md-2" href="/problems/submit?pid={{ problem.pid }}"><i class="glyphicon glyphicon-open"></i> Submit</a>
+                <!--</div>-->
+            </div>
+            <div class="row" style="padding-top: 10px">
+                <!--<div class="col-md-2">-->
+                    <a type="button" class="btn btn-default col-md-2"><i class="glyphicon glyphicon-align-left"></i> Submmsions</a>
+                <!--</div>-->
+            </div>
+            <div class="row" style="padding-top: 10px">
+                <!--<div class="col-md-2">-->
+                    <a type="button" class="btn btn-default col-md-2"><i class="glyphicon glyphicon-list"></i> Leaderboard</a>
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9 container" style="padding-top:10px">
+        <div class="row">
+            <h1><strong>Problem {{ problem.pid }}</strong> <small style="padding-left:10px"> {{ problem.name }} </small></h1>
+        </div>
+        <div class="row well">
+            {{ problem.description | safe}}
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

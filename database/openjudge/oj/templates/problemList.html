@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>OnlineJudge</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">OnlineJudge</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/problems">Problems</a></li>
+                <li><a href="/submissions">Submissions</a></li>
+                <li><a href="/contests">Contests</a></li>
+            </ul>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
+        </div>
+</nav>
+
+<div class="container-fluid">
+
+
+<div class="container-fluid">
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th class="col-md-2">Problems Id</th>
+            <th class="col-md-4">Problems Name</th>
+            <th class="col-md-2">Submission count</th>
+            <th class="col-md-2">accept rate</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for problem in list %}
+                <tr>
+                    <td><strong>{{ problem.pid }}</strong></td>
+                    <td><a href="/problems/{{ problem.pid }}">{{ problem.name }}</a></td>
+                    <td>{{ problem.total }}</td>
+                    <td>{{ problem.ac_rate}} %</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include './pagination.html' %}
+
+</div>
+
+</body>
+</html>

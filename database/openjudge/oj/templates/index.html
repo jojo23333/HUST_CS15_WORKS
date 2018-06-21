@@ -11,16 +11,17 @@
 </head>
 <body>
 
+
 <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">OnlineJudge</a>
+            <a class="navbar-brand" href="/">OnlineJudge</a>
         </div>
         <div>
             <ul class="nav navbar-nav">
-                <li><a href="./problems.html">Problems</a></li>
-                <li><a href="#">Submissions</a></li>
-                <li><a href="#">Contests</a></li>
+                <li><a href="/problems">Problems</a></li>
+                <li><a href="/submissions">Submissions</a></li>
+                <li><a href="/contests">Contests</a></li>
                 <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         Java
@@ -38,16 +39,31 @@
                 </li> -->
             </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right"> 
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Register</a></li> 
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> 
-        </ul>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
         </div>
 </nav>
+
+{% if request.GET.login == "success" %}
+<div class="alert alert-success">
+    <span class="glyphicon glyphicon-ok"></span>
+    <strong>Success!</strong> Welcome ! {{ request.user.username }}.
+</div>
+{% endif %}
 
 <div class="jumbotron text-center" style="margin-bottom:0">
   <h2>Welcome to onlineJudge V1.0</h2> 
 </div>
+
 
 </body>
 </html>
