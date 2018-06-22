@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OnlineJudge</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">OnlineJudge</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/problems">Problems</a></li>
+                <li><a href="/submissions">Submissions</a></li>
+                <li><a href="/contests">Contests</a></li>
+            </ul>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
+        </div>
+</nav>
+
+<div class="container-fulid">
+
+{% if msg %}
+<div class="alert alert-warning">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <strong>提交失败</strong>： <small>{{msg}}</small>
+</div>
+{% endif %}
+
+<div class="well container">
+    <div class="col-md-8" style="float:none; margin: 0 auto;">
+            <div class="page-header">
+                <h3 class="modal-title" id="submitModalLabel">Submit your solution</h3>
+            </div>
+            <div class="page-body">
+                <form id="submit-form" action="./submit" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+
+                        <!-- For practice -->
+                        <div class="row" style="padding-top: 5px">
+                            <label class="col-md-2 col-form-label">Problem:</label>
+                            <div class="col-md-7">
+                                <select class="form-control custom-select" name="pid">
+                                    {% for problem in problems %}
+                                        <option value={{ problem.pid }}><strong>{{ problem.contest_id }}</strong> : <small>{{ problem.name }}</small></option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top: 5px">
+                            <label for="submit-language" class="col-md-2 col-form-label">Language:</label>
+                            <div class="col-md-10">
+                                <select class="form-control custom-select" name="language" id="submit-language">
+                                    <option value="cpp">G++</option>
+                                    <option value="c">GCC</option>
+                                    <option value="java">Java</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top: 5px">
+                            <label for="submit-share" class="col-md-2 col-form-label">Share:</label>
+                            <div class="col-md-10">
+                                <div class="btn-group" data-toggle="buttons" id="submit-share">
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="share" id="share1" value="1" autocomplete="off">Yes
+                                    </label>
+                                    <label class="btn btn-secondary active">
+                                        <input type="radio" name="share" id="share0" value="0" autocomplete="off">No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top: 5px">
+                            <label for="submit-solution" class="col-md-2 col-form-label">Solution:</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" name="source" id="submit-solution" rows="20" placeholder="At least 50 characters"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="page-footer">
+                <div class="alert alert-danger" role="alert" id="submit-alert" style="display: none"></div>
+                <button type="button" class="btn btn-primary" id="btn-submit" onclick="document.getElementById('submit-form').submit()">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Clear</button>
+            </div>
+        </div>
+</div>
+</div>
+
+</body>
+</html>

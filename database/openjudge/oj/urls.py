@@ -14,4 +14,6 @@ urlpatterns = [
     path('submissions/', views.submissionListView.as_view(), name='submission_listview'),
     path('submissions/<int:pk>', views.submissionDetailView.as_view(), name='submission_detailview'),
     path('contests', views.contestListView.as_view(), name='contest_listview'),
+    path('contests/<int:pk>', views.contestDetailView.as_view(), name='contest_detailview'),
+    path('contests/<int:contest_id>/submit', views.contestSubmitView.as_view(), name="contest_submit_view"),
 ]

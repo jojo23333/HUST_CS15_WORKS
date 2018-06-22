@@ -56,13 +56,13 @@
             {% for contest in list %}
                 <tr class="{{ contest.status_color }}">
                     <td><strong>{{ contest.id }}</strong></td>
-                    <td><a href="/problems/{{ contest.id }}">{{ contest.name }}</a></td>
+                    <td><a href="/contests/{{ contest.id }}">{{ contest.name }}</a></td>
                     {% if contest.status_color == "info" %}
-                        <td><font color="blue"><strong>Ended</strong></font></td>
+                        <td><font color="blue"><strong>Scheduled</strong></font></td>
                     {% elif contest.status_color == "warning" %}
                         <td><font color="orange"><strong>Running</strong></font></td>
                     {% else %}
-                        <td><font color="green"><strong>Scheduled</strong></font></td>
+                        <td><font color="green"><strong>Ended</strong></font></td>
                     {% endif %}
                     <td>{{ contest.start_time }} </td>
                     <td>{{ contest.length }} hours</td>

@@ -1,10 +1,11 @@
 import markdown, pytz
+from random import randint
 from datetime import datetime
 from .models import Problem, Submission, Contest, UserProfile
 from .forms import loginForm, registerForm, submitForm
 
 from django.views import generic, View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -94,7 +95,7 @@ class problemListView(View):
     page_size = 10
     def get(self, request, *args, **kwargs):
         # user = request.user.username
-        problem_list = Problem.objects.order_by('-pid')
+        problem_list = Problem.objects.order_by('pid')
 
         paginator = Paginator(problem_list, self.page_size)
         last_page = (len(problem_list) - 1 )/ self.page_size + 1
@@ -146,8 +147,10 @@ class submitView(LoginRequiredMixin, View):
             source = form.cleaned_data['source']
             try:
                 problem = Problem.objects.get(pid=pid)
-                new_submit = Submission.objects.create(user=request.user, problem=problem, source=source, language=language)
-                return redirect('/submission/'+ str(new_submit.id) + '?submit=success')
+                # Todo: add judge_backend
+                x = ["AC", "WA", "TLE", "MLE"][randint(0,3)]
+                new_submit = Submission.objects.create(user=request.user, problem=problem, source=source, language=language, status=x)
+                return redirect('/submissions/'+ str(new_submit.id) + '?submit=success')
             except ObjectDoesNotExist:
                 return render(request, 'submit.html', {'msg': '指定题号不存在！"'})
         else:
@@ -161,7 +164,7 @@ class submissionListView(View):
     def get(self, request, *args, **kwargs):
         # user = request.GET.get('user')
 
-        submission_list = Submission.objects.filter()
+        submission_list = Submission.objects.order_by('-submit_time')
         paginator = Paginator(submission_list, self.page_size)
         last_page = (len(submission_list) - 1) / self.page_size + 1
         try:
@@ -212,8 +215,10 @@ class contestListView(View):
         for contest in show_list:
             tzinfo = contest.start_time.tzinfo
             if datetime.now(tzinfo) < contest.start_time:
+                contest.status = 'scheduled'
                 contest.status_color = 'info'
             elif datetime.now(tzinfo) > contest.end_time:
+                contest.status = 'ended'
                 contest.status_color = 'success'
             else:
                 contest.status = 'running'
@@ -233,5 +238,138 @@ class contestDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'contest'
     login_url = '/login'
 
+    def get_object(self, queryset=None):
+        obj = super(contestDetailView, self).get_object()
+        obj.problems = obj.problem_set.all().order_by('pid')
+        obj.submissions = obj.submission_set.all()
+
+        # problem info
+        new_id = ord('A')
+        for problem in obj.problems:
+            total_submit = obj.submissions.filter(problem=problem)
+            ac_submit = total_submit.filter(status='AC')
+            problem.accepted = len(ac_submit)
+            problem.total = len(total_submit)
+            problem.contest_id = chr(new_id)
+            problem.description = markdown.markdown(problem.description)
+            new_id = new_id + 1
+
+        # submission info
+        for submission in obj.submissions:
+            submission.status = submission.get_status()
+            submission.submit_time = submission.submit_time.strftime('%Y-%m-%d %H:%M:%S')
+
+        # time info
+        tzinfo = obj.start_time.tzinfo
+        if datetime.now(tzinfo) < obj.start_time:
+            obj.status = 'scheduled'
+            obj.status_color = 'info'
+        elif datetime.now(tzinfo) > obj.end_time:
+            obj.status = 'ended'
+            obj.status_color = 'success'
+        else:
+            obj.status = 'running'
+            obj.status_color = 'warning'
+        obj.start_second = obj.start_time.timestamp()
+        obj.end_second = obj.end_time.timestamp()
+        obj.length = "%.2f" % (abs(obj.end_time - obj.start_time).total_seconds() / 3600.0)
+
+        # description
+        obj.description = markdown.markdown(obj.description)
+
+        # standing
+        obj.users = obj.submission_set.all().values_list('user', flat=True).distinct()
+        obj.standing = []
+        for user_id in obj.users:
+            user = User.objects.get(id=user_id)
+            # look at all users
+            detail = []
+            ac_count = 0
+            penalty = 0
+            user_submit = obj.submission_set.filter(user=user)
+            for problem in obj.problems:
+                # look at status of each problem
+                problem_submit = user_submit.filter(problem=problem).order_by('submit_time')
+                ac_submit = problem_submit.filter(status='AC')
+                fail_submit = problem_submit.exclude(status='AC')
+                if len(problem_submit) == 0:
+                    # not yet submit
+                    detail.append({"problem": problem, "status": "null", "count" : 0})
+                elif len(ac_submit) > 0:
+                    # compute penalty for accepted problems
+                    ac_count = ac_count + 1
+                    fail_before_ac = 0
+                    for submit in problem_submit:
+                        if submit.status != 'AC':
+                            fail_before_ac  = fail_before_ac + 1
+                            penalty = penalty + 20
+                        else:
+                            ac_time = int( abs(submit.submit_time - obj.start_time).total_seconds() / 60 )
+                            penalty = penalty + ac_time
+                            break
+                    detail.append({"problem": problem, "status": "accepted", "count" : fail_before_ac, "time" :ac_time })
+                else:
+                    # not yet accepted
+                    detail.append({"problem": problem, "status": "rejected", "count": len(fail_submit)})
+
+            userinfo = {}
+            userinfo["penalty"] = penalty
+            userinfo["ac_count"] = ac_count
+            userinfo["detail"] = detail
+            userinfo["username"] = user.username
+            obj.standing.append(userinfo)
+
+        # sort by ac_count desending & penalty ascending
+        obj.standing = sorted(obj.standing, key=lambda x: (x['ac_count'], -x['penalty']), reverse=True)
+        for i,x in enumerate(obj.standing):
+            x["rank"] = i+1
+
+        return obj
 
 
+class contestSubmitView(LoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        contest_id = self.kwargs["contest_id"]
+        contest = get_object_or_404(Contest, id=contest_id)
+        contest.problems = contest.problem_set.all().order_by('pid')
+
+        new_id = ord('A')
+        for problem in contest.problems:
+            problem.contest_id = chr(new_id)
+            new_id = new_id + 1
+
+        return render(request, 'contestSubmit.html', {"problems": contest.problems})
+
+
+    def post(self, request, *args, **kwargs):
+        contest_id = self.kwargs["contest_id"]
+        contest = get_object_or_404(Contest, id=contest_id)
+        contest.problems = contest.problem_set.all().order_by('pid')
+
+        new_id = ord('A')
+        for problem in contest.problems:
+            problem.contest_id = chr(new_id)
+            new_id = new_id + 1
+
+        form = submitForm(request.POST)
+        if form.is_valid():
+            pid = form.cleaned_data['pid']
+            language = form.cleaned_data['language']
+            source = form.cleaned_data['source']
+            try:
+                problem = Problem.objects.get(pid=pid)
+                # Todo: add judge_backend
+                x = ["AC", "WA", "TLE", "MLE"][randint(0, 3)]
+                new_submit = Submission.objects.create(user=request.user, problem=problem, source=source,
+                                                       language=language, status=x)
+                contest.submission_set.add(new_submit)
+                return redirect('/submissions/' + str(new_submit.id) + '?submit=success')
+            except ObjectDoesNotExist:
+                return render(request, 'contestSubmit.html', {'msg': '指定题号不存在！',"problems": contest.problems})
+        else:
+            print(form.errors)
+            return render(request, 'contestSubmit.html', {'msg': '表单不合法', "problems": contest.problems})
+
+
+# class userProfileView
