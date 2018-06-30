@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/jojo/repo/HUST_CS15_WORKS/编译原理/labs/Lab/Code/parser",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "/home/jojo/repo/HUST_CS15_WORKS/编译原理/labs/Lab/Code",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
