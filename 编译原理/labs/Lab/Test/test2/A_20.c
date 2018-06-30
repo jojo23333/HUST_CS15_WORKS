@@ -13,7 +13,7 @@ int main() {
 	sum = 0;
 	while(i < N){
 		t.name[i] = a[i][i];
-		t.hair[i] = a[i][N - i -1];
+		t.hair[i] = a[i][N - i - 1];
 		i = i + 1;
 	}
 	while(i >= 0){
