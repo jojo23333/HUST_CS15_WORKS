@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OnlineJudge</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">OnlineJudge</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/problems">Problems</a></li>
+                <li><a href="/submissions">Submissions</a></li>
+                <li class="active"><a href="/contests">Contests</a></li>
+            </ul>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
+        </div>
+</nav>
+
+<div class="container-fluid">
+
+
+<div class="container-fluid">
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th class="col-md-1">Contest Id</th>
+            <th class="col-md-2">Contest Name</th>
+            <th class="col-md-1">Status</th>
+            <th class="col-md-2">Start time</th>
+            <th class="col-md-1">Duration</th>
+            <th class="col-md-1">Participant count</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for contest in list %}
+                <tr class="{{ contest.status_color }}">
+                    <td><strong>{{ contest.id }}</strong></td>
+                    <td><a href="/contests/{{ contest.id }}">{{ contest.name }}</a></td>
+                    {% if contest.status_color == "info" %}
+                        <td><font color="blue"><strong>Scheduled</strong></font></td>
+                    {% elif contest.status_color == "warning" %}
+                        <td><font color="orange"><strong>Running</strong></font></td>
+                    {% else %}
+                        <td><font color="green"><strong>Ended</strong></font></td>
+                    {% endif %}
+                    <td>{{ contest.start_time }} </td>
+                    <td>{{ contest.length }} hours</td>
+                    <td>{{ contest.participant_count }} </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include './pagination.html' %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OnlineJudge</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+  </style>
+</head>
+<body onload="startTime()">
+<script>
+    function changeProblem(curnav) {
+        var navs = document.querySelectorAll('#contest-problem-nav > li');
+        var tabs = document.querySelectorAll('#contest-problem-tab > div');
+        for(var i = 0, len = tabs.length; i < len; i++) {
+            if(navs[i] === curnav) {
+                navs[i].className = 'active';
+                tabs[i].className = 'container show';
+            } else {
+                navs[i].className = '';
+                tabs[i].className = 'container hidden';
+            }
+        }
+    }
+
+    function changeTab(curnav) {
+        var navs = document.querySelectorAll('#contest-nav > li');
+        var tabs = document.querySelectorAll('#contest-tab > div');
+        for(var i = 0, len = tabs.length; i < len; i++) {
+            if(navs[i] === curnav) {
+                navs[i].className = 'active';
+                tabs[i].className = 'container show';
+            } else {
+                navs[i].className = '';
+                tabs[i].className = 'container hidden';
+            }
+        }
+    }
+
+    function startTime(){
+        var today=new Date();
+        var now = today.getTime()/1000.0;
+        var start_second = {{ contest.start_second }};
+        var end_second = {{ contest.end_second }};
+        var percentage  = 100.0 * (now-start_second) / (end_second - start_second)
+        if ( percentage < 0 ){
+            now = start_second;
+            percentage = 0;
+        }
+        else if ( percentage > 100 ){
+            now = end_second;
+            percentage = 100;
+        }
+        elapse_hours = checkTime(Math.floor((now-start_second) / 3600));
+        elapse_minutes = checkTime(Math.floor((now - start_second) / 60) % 60);
+        elapse_seconds = checkTime(Math.floor((now - start_second) % 60));
+        remain_hours = checkTime(Math.floor((end_second - now) / 3600));
+        remain_minutes = checkTime(Math.floor((end_second - now) / 60) % 60);
+        remain_seconds = checkTime(Math.floor(end_second - now ) % 60);
+        document.getElementById('contest-elapse').innerHTML = elapse_hours+":"+elapse_minutes+":"+elapse_seconds;
+        document.getElementById('contest-remaining').innerHTML = remain_hours+":"+remain_minutes+":"+remain_seconds;
+        document.getElementById('contest-bar').style.width = percentage+"%";
+
+
+        t=setTimeout(function(){startTime()},500);
+        var Y=today.getFullYear()
+        var M=today.getMonth() + 1
+        var d=today.getDate()
+        var h=today.getHours();
+        var m=today.getMinutes();
+        var s=today.getSeconds();// 在小于10的数字钱前加一个‘0’
+        m=checkTime(m);
+        s=checkTime(s);
+        document.getElementById('txt').innerHTML=Y+"-"+ M + "-" + d +" "+h+":"+m+":"+s;
+    }
+
+    function checkTime(i){
+        if (i<10){
+            i="0" + i;
+        }
+        return i;
+    }
+</script>
+
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">OnlineJudge</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/problems">Problems</a></li>
+                <li><a href="/submissions">Submissions</a></li>
+                <li><a href="/contests">Contests</a></li>
+            </ul>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
+        </div>
+</nav>
+
+<div class="container-fluid">
+
+<div class="container well well-lg" >
+<div class="row">
+    <div class="row">
+        <div class="col-md-3 text-left"><b>Begin: </b>{{ contest.start_time }}</div>
+        <div class="col-md-6 text-center"><h2><b>{{ contest.name }}</b></h2></div>
+        <div class="col-md-3 text-right"><b>End: </b>{{ contest.end_time }}</div>
+    </div>
+    <div class="row" style="padding-up: 10px">
+        <div class="progress center-block " style="width:85%;" >
+            <div id="contest-bar" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"  style="width: 0%">
+                <span class="sr-only">{{ contest.left }} hours left</span>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-up: 5px">
+        <div class="col-md-3 text-left"><b>Elapsed: </b><span id="contest-elapse"></span></div>
+        <h4 class="col-md-6 text-center text-{{ contest.status_color }}">{{ contest.status }}</h4>
+        <div class="col-md-3 text-right"><b>Remaining: </b><span id="contest-remaining"></span></div>
+    </div>
+    <div class="row" style="padding-up: 10px">
+        <div class="container">
+            {{ contest.description | safe }}
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class="container well {% if contest.status == 'scheduled' %} hidden {% endif %}">
+    <div class="row">
+        <ul class="nav nav-tabs" id="contest-nav">
+            <li role="presentation" class="active" onclick="changeTab(this)"><a href="#">OverView</a></li>
+            <li role="presentation" onclick="changeTab(this)"><a href="#">Problems</a></li>
+            <li role="presentation" onclick="changeTab(this)"><a href="#">Status</a></li>
+            <li role="presentation" onclick="changeTab(this)"><a href="#">Standing</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div id="contest-tab">
+            <!--Overview tab-->
+            <div class="container show" id="contest-overview">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-2">Problems Name</th>
+                        <th class="col-md-1">Submission count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for problem in contest.problems %}
+                            <tr>
+                                <td><strong>{{ problem.contest_id }}</strong></td>
+                                <td><a href="/problems/{{ problem.pid }}">{{ problem.name }}</a></td>
+                                <td> {{ problem.accepted }} / {{ problem.total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!--Problems tab-->
+            <div class="container hidden" id="contest-problems">
+                <div class="row"><div class="container">
+                    <ul class="pagination" id="contest-problem-nav">
+                        {% for problem in contest.problems %}
+                            <li onclick="changeProblem(this)"><a href="#">{{ problem.contest_id }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div></div>
+                <div class="container" id="contest-problem-tab" >
+                    {% for problem in contest.problems %}
+                    <div class="container hidden">
+                        <div class="row">
+                            <h1><strong>Problem {{ problem.contest_id }}</strong> <small style="padding-left:10px"> {{ problem.name }} </small></h1>
+                        </div>
+                        <div class="row well" style="width:80%">
+                            {{ problem.description | safe}}
+                        </div>
+                        <div class="row">
+                            <a type="button" class="btn btn-primary" href="./{{ contest.id }}/submit"><i class="glyphicon glyphicon-open"></i> Submit</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <!--Status tab-->
+            <div class="container hidden" id="contest-status">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1">Run Id</th>
+                        <th class="col-md-2">User Name</th>
+                        <th class="col-md-2">Problem id</th>
+                        <th class="col-md-1">Status</th>
+                        <th class="col-md-1">RunTime</th>
+                        <th class="col-md-1">Language</th>
+                        <th class="col-md-2">Submit time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for submit in contest.submissions %}
+                            <tr>
+                                <!--Href to user profile submissionDetail and Problem-->
+                                <td><a href="/submissions/{{ submit.id }}"><strong>{{ submit.id }}</strong></a></td>
+                                <td><a href="/user/{{ submit.user.username }}">{{ submit.user.username }}</a></td>
+                                <td><a href="/problems/{{ submit.problem.pid }}">{{ submit.problem.pid }}</a></td>
+                                <!--Display for different type of judge status-->
+                                {% if submit.status == 'Accepted' %}
+                                    <td><span class="label label-success">{{ submit.status }}</span></td>
+                                {% elif submit.status == 'Wrong Answer' %}
+                                    <td><span class="label label-danger">{{ submit.status }}</span></td>
+                                {% elif submit.status == 'Pending' %}
+                                    <td><span class="label label-info">{{ submit.status }}</span></td>
+                                {% else %}
+                                    <td><span class="label label-warning">{{ submit.status }}</span></td>
+                                {% endif %}
+                                <!---->
+                                <td>{{ submit.run_time }} </td>
+                                <td>{{ submit.language }} </td>
+                                <td>{{ submit.submit_time }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!--Standing tab-->
+            <div class="container hidden" id="contest-standing">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="col-md-1">Rank</th>
+                        <th class="col-md-1">Username</th>
+                        <th class="col-md-1">Score</th>
+                        <th class="col-md-1">Penalty</th>
+                        {% for problem in contest.problems %}
+                        <th><strong>{{ problem.contest_id }}</strong></th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in contest.standing %}
+                            <tr>
+                                <td> {{ user.rank }}</td>
+                                <td> {{ user.username }}</td>
+                                <td> {{ user.ac_count }}</td>
+                                <td> {{ user.penalty }}</td>
+                                {% for problem in user.detail %}
+                                    {% if problem.status == "accepted" %}
+                                        <td class="bg-success"><span >{{ problem.time }}
+                                            <small>(-{{ problem.count }})</small>
+                                        </span></td>
+                                    {% elif problem.status == "rejected" %}
+                                        <td class="bg-danger"><span >(-{{ problem.count }})</span></td>
+                                    {% else %}
+                                        <td><span></span></td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td>Statistics</td>
+                            <td></td>
+                            <td></td>
+                            {% for problem in contest.problems %}
+                            <td><strong>{{ problem.accepted }} / {{ problem.total }}</strong></td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<footer class="footer text-center">
+    <b>Server time: </b>
+    <span id="txt"></span>
+</footer>
+</body>
+</html>

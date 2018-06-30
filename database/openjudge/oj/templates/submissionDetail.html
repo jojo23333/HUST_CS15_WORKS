@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>OnlineJudge</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">OnlineJudge</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/problems">Problems</a></li>
+                <li class="active"><a href="/submissions">Submissions</a></li>
+                <li><a href="/contests">Contests</a></li>
+            </ul>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user"><span class="glyphicon glyphicon-user">{{ request.user.username }}</span></a></li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        {% endif %}
+        </div>
+</nav>
+
+<div class="container-fluid">
+{% if request.GET.submit %}
+    <div class="alert alert-success">
+        <span class="glyphicon glyphicon-ok"></span>
+        <strong>Submit success!</strong>
+    </div>
+{% endif %}
+
+<div class="row col-md-10" style="float:none; margin: 0 auto;">
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th class="col-md-1">Run Id</th>
+            <th class="col-md-2">User Name</th>
+            <th class="col-md-1">Problem id</th>
+            <th class="col-md-1">Status</th>
+            <th class="col-md-1">RunTime</th>
+            <th class="col-md-1">Language</th>
+            <th class="col-md-2">Submit time</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!--Href to user profile submissionDetail and Problem-->
+                <td><a href="/submissions/{{ submit.id }}"><strong>{{ submit.id }}</strong></a></td>
+                <td><a href="/user/{{ submit.user.username }}">{{ submit.user.username }}</a></td>
+                <td><a href="/problems/{{ submit.problem.pid }}">{{ submit.problem.pid }}</a></td>
+                <!--Display for different type of judge status-->
+                {% if submit.status == 'Accepted' %}
+                    <td><span class="label label-success">{{ submit.status }}</span></td>
+                {% elif submit.status == 'Wrong Answer' %}
+                    <td><span class="label label-danger">{{ submit.status }}</span></td>
+                {% elif submit.status == 'Pending' %}
+                    <td><span class="label label-info">{{ submit.status }}</span></td>
+                {% else %}
+                    <td><span class="label label-warning">{{ submit.status }}</span></td>
+                {% endif %}
+                <!---->
+                <td>{{ submit.run_time }} </td>
+                <td>{{ submit.language }} </td>
+                <td>{{ submit.submit_time }} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row col-md-10" style="float:none; margin: 0 auto;">
+    <div class="well">
+        <pre>{{ submit.source }}</pre>
+    </div>
+</div>
+
+
+</div>
+
+</body>
+</html>
